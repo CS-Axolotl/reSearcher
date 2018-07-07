@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "client:dev": "webpack -d --config webpack.config.js --watch --hot",
+    "client:dev": "webpack --config webpack.config.js --watch",
     "prebuild": "rimraf dist",
     "build": "webpack -p --config webpack.config.js",
     "prestart": "npm run build",
@@ -29,6 +29,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
+    "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "react-hot-loader": "^4.3.3",
