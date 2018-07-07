@@ -74,6 +74,5 @@ module.exports = {
       template: 'public/index.html',
     }),
     new CopyWebpackPlugin([{ from: '**/**/**/*.css', to: '[name].css' }]),
-    new webpack.HotModuleReplacementPlugin(),
   ],
 };

@@ -8,7 +8,7 @@ import './db';
 import router from './routes/index';
 
 const DIST_DIR = path.join(__dirname, '../dist');
-const PORT = 8000;
+const PORT = 3000;
 const app = express();
 
 const corsOption = {
