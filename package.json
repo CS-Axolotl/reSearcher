@@ -38,6 +38,7 @@
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
@@ -45,6 +46,7 @@
     "express": "^4.16.3",
     "mongoose": "^5.2.1",
     "morgan": "^1.9.0",
+    "node-fetch": "^2.1.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   }
