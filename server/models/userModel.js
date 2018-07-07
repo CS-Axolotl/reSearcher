@@ -6,11 +6,10 @@ const Schema = mongoose.Schema;
 // const bcrypt = require('bcryptjs');
 
 const userSchema = new Schema({
+  id: Number
   username: { type: String, required: true, unique: true },
   password: { type: Schema.Types.Mixed, required: true },
   email: String,
-  results: Array,
-  keywords: Array,
 });
 
 // userSchema.pre('save', function (next) {

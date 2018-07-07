@@ -9,8 +9,11 @@ const userController = {};
 // };
 
 // userController.createUser = (req, res, next) => {
+// const {
+//  id, username, password, email
+// } = req.body;
 //   User.create(
-//     { username: req.body.username, password: req.body.password },
+//     { id, username, password, email },
 //     (err, user) => {
 //       if (err) {
 //         res.status(400);
