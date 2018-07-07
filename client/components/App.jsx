@@ -4,8 +4,8 @@ import MainSearchContainer from './../containers/mainSearchContainer.jsx';
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1>The ReSearcher</h1>
+      <div className="App">
+        <h1 id="titleHeader">The ReSearcher</h1>
         <MainSearchContainer />
       </div>
     )

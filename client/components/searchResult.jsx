@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 
 const SearchResult = (props) => (
   <div className="searchResult">
-    <input type="checkbox"/>
+    <input id={props.checkId} type="checkbox"/>
     <div className="searchDetail">
       <p>Title: {props.name}</p>
-      <p>Description: {props.description}</p>
       <p>URL {props.url}</p>
+      <p>Description: {props.description}</p>
     </div>
   </div>
 );
