@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 // const SALT_WORK_FACTOR = 10;
 // const bcrypt = require('bcryptjs');
 
-const userSchema = new Schema({
-  id: Number
+const UserSchema = new Schema({
+  id: Number,
   username: { type: String, required: true, unique: true },
   password: { type: Schema.Types.Mixed, required: true },
   email: String,
@@ -22,4 +22,4 @@ const userSchema = new Schema({
 //   return bcrypt.compareSync(candidatePassword, this.password);
 // };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', UserSchema);

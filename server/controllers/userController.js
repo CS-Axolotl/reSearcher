@@ -1,14 +1,14 @@
-const User = require('./../models/userModel');
-const cookieController = require('./cookieController');
-const sessionController = require('./sessionController');
+const User = require("./../models/userModel");
+const CookieController = require("./CookieController");
+const SessionController = require("./SessionController");
 
-const userController = {};
+const UserController = {};
 
-// userController.getAllUsers = (next) => {
+// UserController.getAll = (next) => {
 //   User.find({}, next);
 // };
 
-// userController.createUser = (req, res, next) => {
+// UserController.create = (req, res, next) => {
 // const {
 //  id, username, password, email
 // } = req.body;
@@ -25,7 +25,7 @@ const userController = {};
 //   );
 // };
 
-// userController.verifyUser = (req, res, next) => {
+// UserController.verify = (req, res, next) => {
 //   if (
 //     typeof req.body.username === ("string" || "number") &&
 //     typeof req.body.password === ("string" || "number")
@@ -46,4 +46,4 @@ const userController = {};
 //   }
 // };
 
-module.exports = userController;
+module.exports = UserController;

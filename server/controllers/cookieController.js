@@ -1,8 +1,8 @@
 const sessionController = require('./sessionController');
 
-const cookieController = {};
-cookieController.setCookie = setCookie;
-cookieController.setSSIDCookie = setSSIDCookie;
+const CookieController = {};
+CookieController.setCookie = setCookie;
+CookieController.setSSIDCookie = setSSIDCookie;
 
 // function setCookie(req, res, next) {
 //   res.cookie('testing', 'hello');
@@ -14,4 +14,4 @@ cookieController.setSSIDCookie = setSSIDCookie;
 //   next();
 // }
 
-module.exports = cookieController;
+module.exports = CookieController;

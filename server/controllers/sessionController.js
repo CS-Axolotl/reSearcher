@@ -1,8 +1,8 @@
 const Session = require('./../models/sessionModel');
 
-const sessionController = {};
+const SessionController = {};
 
-// sessionController.isLoggedIn = (req, res, next) => {
+// SessionController.isLoggedIn = (req, res, next) => {
 //   Session.find({ cookieId: req.cookies.ssid }, (err, sessions) => {
 //     if (err || !sessions[0]) {
 //       res.redirect('/signup');
@@ -12,7 +12,7 @@ const sessionController = {};
 //   });
 // };
 
-// sessionController.startSession = (req, res, next) => {
+// SessionController.startSession = (req, res, next) => {
 //   Session.create({ cookieId: res.locals.id }, (err) => {
 //     if (err) console.log('Session error', err);
 //     else console.log('New Session');
@@ -20,4 +20,4 @@ const sessionController = {};
 //   next();
 // };
 
-module.exports = sessionController;
+module.exports = SessionController;

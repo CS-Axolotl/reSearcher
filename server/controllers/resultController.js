@@ -1,12 +1,12 @@
 const Result = require('./../models/resultModel');
 
-const resultController = {};
+const ResultController = {};
 
-// resultController.getAllResults = (next) => {
+// ResultController.getAll = (next) => {
 //   Result.find({}, next);
 // };
 
-// resultController.createResult = (req, res, next) => {
+// ResultController.create = (req, res, next) => {
 // const {id, url, title, description, pagePublishDate, tags} = req.body;
 //   Result.create(
 //     { id, url, title, description, pagePublishDate, tags},
@@ -20,4 +20,4 @@ const resultController = {};
 //   );
 // };
 
-module.exports = resultController;
+module.exports = ResultController;

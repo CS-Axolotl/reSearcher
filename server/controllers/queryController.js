@@ -1,12 +1,12 @@
 const Query = require('./../models/queryModel');
 
-const queryController = {};
+const QueryController = {};
 
-// queryController.getAllUsers = (next) => {
+// QueryController.getAll = (next) => {
 //   Query.find({}, next);
 // };
 
-// queryController.createUser = (req, res, next) => {
+// QueryController.create = (req, res, next) => {
 // const { id, date, results } = req.body;
 //   Query.create(
 //     { id, date, results },
@@ -20,4 +20,4 @@ const queryController = {};
 //   );
 // };
 
-module.exports = queryController;
+module.exports = QueryController;
