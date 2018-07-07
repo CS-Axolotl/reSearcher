@@ -1,3 +1,9 @@
-body {
-  background-color: blue;
+
+.searchResult {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.searchDetail p {
+  margin: 0;
 }
