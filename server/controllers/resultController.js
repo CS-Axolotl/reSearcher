@@ -1,23 +1,22 @@
-const Result = require('./../models/resultModel');
+import Result from '../models/ResultModel';
 
 const ResultController = {};
 
-// ResultController.getAll = (next) => {
-//   Result.find({}, next);
-// };
+ResultController.getAll = () => {
+  Result.find({}, () => {});
+};
 
-// ResultController.create = (req, res, next) => {
-// const {id, url, title, description, pagePublishDate, tags} = req.body;
-//   Result.create(
-//     { id, url, title, description, pagePublishDate, tags},
-//     (err, result) => {
-//       if (err) {
-//         res.status(400);
-//       } else {
-//         next();
-//       }
-//     },
-//   );
-// };
+ResultController.create = (req, res, next) => {
+  Result.create(
+    { ...req.body },
+    (err) => {
+      if (err) {
+        res.status(400);
+      } else {
+        next();
+      }
+    },
+  );
+};
 
 module.exports = ResultController;

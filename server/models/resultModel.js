@@ -1,14 +1,11 @@
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 const ResultSchema = new Schema({
-  id: Number,
-  url: String,
-  title: String,
-  description: String,
-  pagePublishDate: Date,
+  link: String,
+  htmlTitle: String,
+  htmlSnippet: String,
   tags: Array,
+  query_id: { type: Schema.Types.ObjectId, ref: 'Query' },
 });
 
 module.exports = mongoose.model('Result', ResultSchema);

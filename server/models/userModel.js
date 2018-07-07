@@ -1,15 +1,13 @@
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 // const SALT_WORK_FACTOR = 10;
 // const bcrypt = require('bcryptjs');
 
 const UserSchema = new Schema({
-  id: Number,
   username: { type: String, required: true, unique: true },
   password: { type: Schema.Types.Mixed, required: true },
-  email: String,
+  email: { type: String, required: true, unique: true },
+  queries: [{ type: Schema.Types.ObjectId, ref: 'Query' }],
 });
 
 // userSchema.pre('save', function (next) {

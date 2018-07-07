@@ -1,4 +1,4 @@
-const Session = require('./../models/sessionModel');
+import Session from '../models/SessionModel';
 
 const SessionController = {};
 
