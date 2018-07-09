@@ -1,4 +1,4 @@
-const User = require("./../models/userModel");
+const User = require("../models/UserModel");
 const CookieController = require("./CookieController");
 const SessionController = require("./SessionController");
 

@@ -1,11 +1,14 @@
 import { Router } from 'express';
+import passport from 'passport';
 import SearchController from '../controllers/SearchController';
 import QueryController from '../controllers/QueryController';
 import ResultController from '../controllers/ResultController';
-import User from '../models/UserModel';
-import passport from 'passport';
-const { generateToken, sendToken, verifyToken, authenticateUser } = require('../utils/token.utils');
 import strategies from '../passport';
+
+const {
+  generateToken, sendToken, verifyToken, authenticateUser,
+} = require('../utils/token.utils');
+
 strategies();
 
 const router = Router();
@@ -36,7 +39,7 @@ router.route('/auth/google/callback')
       return res.send(401, 'User Not Authenticated');
     }
     req.auth = {
-      id: req.user.id
+      id: req.user.id,
     };
 
     next();
@@ -48,7 +51,7 @@ router.get('/api/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/api/verify-session', authenticateUser, (req, res, next) => {
+router.get('/api/verify-session', authenticateUser, (req, res) => {
   res.setHeader('x-auth-token', req.session.ssid);
   return res.status(200).json(res.locals.user);
 });

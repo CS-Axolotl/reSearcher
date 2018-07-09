@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import MainSearchContainer from './../containers/mainSearchContainer.jsx';
-import LoginComponent from './loginComponent.jsx';
-import NavBarContainer from '../containers/navBarContainer';
+import MainSearchContainer from './../containers/MainSearchContainer.jsx';
+import LoginComponent from './LoginComponent.jsx';
+import NavBarContainer from '../containers/NavBarContainer.jsx';
 
 class App extends Component {
   constructor() {

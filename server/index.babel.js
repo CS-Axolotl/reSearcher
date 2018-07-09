@@ -8,6 +8,7 @@ import './db';
 import router from './routes/index';
 
 const MongoDBStore = require('connect-mongodb-session')(session);
+
 const DIST_DIR = path.join(__dirname, '../dist');
 const PORT = 3000;
 const app = express();
