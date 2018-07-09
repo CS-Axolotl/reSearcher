@@ -51,7 +51,9 @@ router.get('/api/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/api/verify-session', authenticateUser, (req, res) => res.status(200).json({ user: res.locals.user, token: req.session.ssid }));
-
+router.get('/api/verify-session', authenticateUser, (req, res) => {
+  res.setHeader('x-auth-token', req.session.ssid);
+  return res.status(200).json(res.locals.user);
+});
 
 export default router;
