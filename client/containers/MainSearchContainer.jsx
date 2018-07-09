@@ -74,20 +74,16 @@ class MainSearchContainer extends Component {
   }
 
   saveResults = () => {
-    const resultsSave = () => {
-      const checkboxArray = Array.from(document.querySelectorAll('div.searchResult > input'));
-      const checkedDocs = checkboxArray.reduce((acc, current, index) => {
-        if (current.checked === true) acc.push(this.state.searchResults[index]);
-        return acc;
-      }, []);
-
-      this.setState({ searchResults: [...checkedDocs], hasRunSearch: false });
-
-      // request to save resultDocsToSave
-      // request to save queryToSave
-      // bundle them both together
-    };
-    resultsSave();
+    const checkboxArray = Array.from(document.querySelectorAll('div.searchResult > input'));
+    const checkedDocs = checkboxArray.reduce((acc, current, index) => {
+      if (current.checked === true) acc.push(this.state.searchResults[index]);
+      return acc;
+    }, []);
+    this.setState({ searchResults: [...checkedDocs], hasRunSearch: false });
+    axios.post('/api/queries', { searchText: this.state.lastQuery, results: checkedDocs })
+      .then(res => {
+        console.log(res)
+      })
   }
 
   render() {

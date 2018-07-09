@@ -37,13 +37,13 @@ module.exports = {
     if (req.session.ssid) {
       jwt.verify(req.session.ssid, 'hairclips4life', (err, decoded) => {
         if (decoded.id) {
-          User.findById(decoded.id, (err, user) => {
-            if (!user || err) return res.sendStatus(404);
+          User.findById(decoded.id, (error, user) => {
+            if (!user || error) return res.sendStatus(404);
             res.locals.user = user;
             return next();
           });
         }
       });
     }
-  }
+  },
 };
