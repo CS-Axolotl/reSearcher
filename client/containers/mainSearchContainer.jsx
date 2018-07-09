@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import SearchResult from './../components/searchResult.jsx';
+import axios from 'axios';
+import { createMarkup } from './../utils';
 
 class MainSearchContainer extends Component {
   constructor (props) {
@@ -7,19 +9,37 @@ class MainSearchContainer extends Component {
     this.state = {
       hasRunSearch: false,
       searchResults: [],
-      searchResultCount: 10
+      searchResultCount: 10,
+      sessionResults: [],
+      lastQuery: ''
     }
   }
 
+
+
   runSearch = () =>  {
+    // extract search input out into a separate component
+    // refs -- how you if you need to access a DOM node that's a child of component
+    // make the serach input a ref 
+    // no DOM manipulation 
+    // 
     const searchQuery = document.getElementById('searchBox').value;
-    this.setState({hasRunSearch: true});
-    this.populateSearchResults();
+    if (searchQuery.length > 0) {
+      this.setState({hasRunSearch: true, lastQuery: searchQuery});
+      axios.get('/api/search', {params: {q: searchQuery}})
+        .then(({ data }) => {
+          document.getElementById('searchBox').value = '';
+          this.setState({searchResults: [...data]});
+        })
+        .catch(err => console.log(err));
+    } 
     console.log(searchQuery);
     // this.setState({lastQuery: searchQuery});
+    // 
   }
 
   allOrNoneSelector = (e) =>  {
+    // add a prop to search results 
     const checkboxArray = document.querySelectorAll("div.searchResult > input");
     console.log(e.target.id);
     const status = e.target.id === 'allButton';
@@ -32,7 +52,6 @@ class MainSearchContainer extends Component {
       if (current.checked === true) acc.push(this.state.searchResults[index]);
       return acc;
     }, []);
-    console.log('checkbox array', checkboxArray);
     
     console.log('docs to save', checkedDocs);
     this.setState({searchResults: [...checkedDocs], hasRunSearch: false});
@@ -41,27 +60,6 @@ class MainSearchContainer extends Component {
     // request to save queryToSave
     // bundle them both together 
   }
-
-  // temporary function to populate dummy search results 
-  populateSearchResults = () => {
-    const output = [];
-    for (let i = 0; i < this.state.searchResultCount; i += 1) {
-      output.push(
-        {
-          name: `name_${i}`,
-          id: `id_${i}`,
-          title: `titleURL_${i}`,
-          description: `this is a huge long description, but number ${i}`
-        }
-      );
-    }
-    this.setState({searchResults: output});
-  }
-// temporary method to update state with dummy search results
-  // componentDidMount() {
-  //   if (this.state.hasRunSearch) this.populateSearchResults();
-  // }
-
    
 
   render() {
@@ -75,6 +73,15 @@ class MainSearchContainer extends Component {
         <button className="submitButton" onClick={this.runSearch}>Search</button>
       </div>
     );
+
+    const reSearchInput = (
+      <div className="reSearchArea">
+        <input type="search" id="reSearchBox"
+          placeholder="reSearch Google..."
+        />
+        <button className="submitButton" onClick={this.runSearch}>reSearch</button>
+      </div>
+    )
     
     const resultsButtons = (
       <div className="filterButtons">
@@ -87,6 +94,7 @@ class MainSearchContainer extends Component {
     const renderSwitch = () => {
       if (this.state.hasRunSearch) {
         const searchResultsArray = [];
+        // make that a map
         for (let i = 0; i < this.state.searchResults.length; i += 1) {
           const doc = this.state.searchResults[i];
           searchResultsArray.push(
@@ -100,7 +108,7 @@ class MainSearchContainer extends Component {
           // add results component in here, below the searchInput element
           <div className="mainSearchContainer">
             {searchInput}
-            <h2>Here are some search results</h2>
+            <h2>Your Results: {this.state.lastQuery}</h2>
             {resultsButtons}
             {searchResultsArray}
           </div>
@@ -110,8 +118,11 @@ class MainSearchContainer extends Component {
       } else {
         return (
           <div className="mainSearchContainer">
-            {searchInput}
-            <h2>search has not not been run</h2>
+            <div className="doubleSearch">
+              {searchInput}
+              {reSearchInput}
+            </div>
+            <h2>Run your first search...or reSearch.</h2>
           </div>
         );
         // return JUST the search sections 

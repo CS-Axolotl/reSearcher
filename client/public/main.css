@@ -6,3 +6,22 @@
 .searchDetail p {
   margin: 0;
 }
+
+.doubleSearch {
+  display: flex;
+  width: 50%;
+}
+
+.reSearchArea {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.searchArea {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+  

@@ -3,7 +3,7 @@ import axios from 'axios';
 const G_SEARCH_URL = 'https://www.googleapis.com/customsearch/v1';
 const SEARCH_ENGINE_ID = '014283448084479844869:zffloy02m7q';
 
-const SearchApiCtrl = {
+const SearchController = {
   get: (req, res, next) => {
     const {
       q,
@@ -26,17 +26,16 @@ const SearchApiCtrl = {
         },
       })
       .then(({ data }) => {
-        const {
+        const items = data.items.map(({
           htmlTitle, link, htmlSnippet,
-        } = data.items;
-        res.json({
-          htmlTitle,
-          link,
-          htmlSnippet,
-        });
+        }) => ({
+          htmlTitle, link, htmlSnippet,
+        }));
+        console.log(items);
+        return res.json(items);
       })
       .catch(err => next(err));
   },
 };
 
-export default SearchApiCtrl;
+export default SearchController;
