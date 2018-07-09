@@ -35,4 +35,4 @@ QueryController.create = (req, res, next) => {
   });
 };
 
-module.exports = QueryController;
+export default QueryController;
