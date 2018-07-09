@@ -31,7 +31,6 @@ const SearchController = {
         }) => ({
           htmlTitle, link, htmlSnippet,
         }));
-        console.log(items);
         return res.json(items);
       })
       .catch(err => next(err));

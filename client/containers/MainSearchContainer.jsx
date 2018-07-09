@@ -26,10 +26,6 @@ class MainSearchContainer extends Component {
       lastQuery: '',
       fuzzyResults: [],
     };
-    this.handleGoogleChange = this.handleGoogleChange.bind(this);
-    this.handleGoogleSubmit = this.handleGoogleSubmit.bind(this);
-    // this.handleDatabaseChange = this.handleDatabaseChange.bind(this);
-    // this.handleDatabaseSubmit = this.handleDatabaseSubmit.bind(this);
   }
 
   handleGoogleChange = (event) => {
@@ -63,27 +59,6 @@ class MainSearchContainer extends Component {
     };
     getData();
   }
-  // handleDatabaseChange(event) {
-  //   this.setState({ databaseQueryInput: event.target.value });
-  // }
-
-  // handleDatabaseSubmit(event) {
-  //   event.preventDefault();
-  //   const getData = () => {
-  //     const searchQuery = this.state.databaseQueryInput;
-  //     this.setState({ hasRunSearch: true });
-  //     axios
-  //       .get("/api/search", { params: { q: searchQuery } })
-  //       .then(({ data }) => {
-  //         this.setState({
-  //           databaseQueryInput: "",
-  //           searchResults: [...data]
-  //         });
-  //       })
-  //       .catch(err => console.log(err));
-  //   };
-  //   getData();
-  // }
 
   allOrNoneSelector = (e) => {
     const checkBox = () => {
