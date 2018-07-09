@@ -209,7 +209,7 @@ class MainSearchContainer extends Component {
               {searchInput}
               {/* {reSearchInput} */}
             </div>
-            <h2>Run your first search...or reSearch.</h2>
+            <h2>Hi, {this.props.username}. Run your first search...or reSearch.</h2>
           </div>
         );
         // return JUST the search sections
