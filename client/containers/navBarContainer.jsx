@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 
-class NavBarContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  }
+const NavBarContainer = (props) => {
+  return (
+  <div className="navBar">
+    <button id="logout" onClick={props.logout}>Logout</button>
+  </div>
+  );
 }
 
 export default NavBarContainer;
