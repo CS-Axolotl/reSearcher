@@ -56,5 +56,4 @@ router.get('/api/verify-session', authenticateUser, (req, res) => {
   return res.status(200).json(res.locals.user);
 });
 
-
 export default router;
