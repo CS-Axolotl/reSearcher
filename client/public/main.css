@@ -6,12 +6,12 @@
 .searchDetail p {
   margin: 0;
 }
-
+/*
 .doubleSearch {
   display: flex;
   width: 50%;
-}
-
+} */
+/* 
 .reSearchArea {
   display: flex;
   flex-direction: column;
@@ -22,6 +22,4 @@
   display: flex;
   flex-direction: column;
   margin: 10px;
-}
-
-  
+} */
