@@ -1,9 +1,16 @@
 import mongoose, { Schema } from 'mongoose';
-import Result from './ResultModel';
+
+const ResultSchema = new Schema({
+  link: String,
+  htmlTitle: String,
+  htmlSnippet: String,
+  tags: Array,
+  query_id: { type: Schema.Types.ObjectId, ref: 'Query' },
+});
 
 const QueryModel = new Schema({
   created_at: { type: Date, default: Date.now() },
-  results: [{ type: Schema.Types.ObjectId, ref: 'Result' }],
+  results: [ResultSchema],
   searchText: { type: String, required: true },
   userId: { type: Schema.Types.ObjectId, ref: 'User' },
 });

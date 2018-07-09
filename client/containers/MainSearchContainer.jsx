@@ -3,6 +3,8 @@ import axios from 'axios';
 import Fuse from 'fuse.js';
 import SearchResult from '../components/SearchResult.jsx';
 import DatabaseResult from '../components/DatabaseResult.jsx';
+import SearchInput from '../components/SearchInput.jsx';
+import ResultsButtons from '../components/ResultsButtons.jsx';
 
 const options = {
   shouldSort: true,
@@ -30,14 +32,21 @@ class MainSearchContainer extends Component {
 
   handleGoogleChange = (event) => {
     this.setState({
-      googleQueryInput: event.target.value,
-      hasRunSearch: true,
+      googleQueryInput: event.target.value
     });
     if (this.state.googleQueryInput.length > 2) {
       // ********call db for all data *************
+      axios.get('/api/queries')
+        .then(({ data }) => {
+          console.log(data);
+        })
+      // }
       // const fuse = new Fuse(database result array, options);
       // const result = fuse.search(this.state.googleQueryInput);
       // use fuse to search through
+      // this.state.fuzzyResults.forEach((result) => {
+      //   databaseResultsArray.push(<DatabaseResult result={this.state.fuzzyResults} />);
+      // });
     }
   }
 
@@ -53,7 +62,8 @@ class MainSearchContainer extends Component {
       axios
         .get('/api/search', { params: { q: searchQuery } })
         .then(({ data }) => {
-          this.setState({ googleQueryInput: '', searchResults: [...data] });
+          const searchResults = data.map((element, i) => <SearchResult checkId={i} {...element} key={`result+${i}`} />);
+          this.setState({ googleQueryInput: '', searchResults });
         })
         .catch(err => console.log(err));
     };
@@ -64,7 +74,6 @@ class MainSearchContainer extends Component {
     const checkBox = () => {
       // add a prop to search results
       const checkboxArray = document.querySelectorAll('div.searchResult > input');
-
       const status = e.target.id === 'allButton';
       checkboxArray.forEach((x) => {
         x.checked = status;
@@ -79,7 +88,7 @@ class MainSearchContainer extends Component {
       if (current.checked === true) acc.push(this.state.searchResults[index]);
       return acc;
     }, []);
-    this.setState({ searchResults: [...checkedDocs], hasRunSearch: false });
+    this.setState({ searchResults: [...checkedDocs] });
     axios.post('/api/queries', { searchText: this.state.lastQuery, results: checkedDocs })
       .then(res => {
         console.log(res)
@@ -87,93 +96,23 @@ class MainSearchContainer extends Component {
   }
 
   render() {
-    // search input box and button component
-    const searchInput = (
-      <div className="searchArea">
-        <input
-          type="search"
-          id="searchBox"
-          placeholder="Search Google..."
-          onChange={this.handleGoogleChange}
-        />
-        <button className="submitButton" onClick={this.handleGoogleSubmit}>
-          Search
-        </button>
-      </div>
-    );
-
-    const reSearchInput = (
-      <div className="reSearchArea">
-        <input
-          type="search"
-          id="reSearchBox"
-          placeholder="reSearch Google..."
-          // onChange={this.handleDatabaseChange}
-        />
-        <button
-          className="submitButton"
-          // onClick={this.handleDatabaseSubmit}
-        >
-          reSearch
-        </button>
-      </div>
-    );
-
-    const resultsButtons = (
-      <div className="filterButtons">
-        <button id="allButton" onClick={this.allOrNoneSelector}>
-          All
-        </button>
-        <button id="noneButton" onClick={this.allOrNoneSelector}>
-          None
-        </button>
-        <button id="saveButton" onClick={this.saveResults}>
-          Save
-        </button>
-      </div>
-    );
     // render two different views, depending on if a search has been run in this session yet
-    const renderSwitch = () => {
-      if (this.state.hasRunSearch) {
-        const searchResultsArray = [];
-        // make that a map
-        for (let i = 0; i < this.state.searchResults.length; i += 1) {
-          const doc = this.state.searchResults[i];
-          searchResultsArray.push(<SearchResult checkId={i} {...doc} key={`result+${i}`} />);
-        }
-        const databaseResultsArray = [];
-        this.state.fuzzyResults.forEach((result) => {
-          databaseResultsArray.push(<DatabaseResult result={this.state.fuzzyResults} />);
-        });
-
-        return (
-          // add results component in here, below the searchInput element
-          <div className="mainSearchContainer">
-            <div className="googleSearch">
-              {searchInput}
-              <h2>Your Results: {this.state.lastQuery}</h2>
-              {resultsButtons}
-              {searchResultsArray}
-            </div>
-            <div className="databaseSearch">
-              <h2>Your Search: {this.state.googleQueryInput}</h2>
-              {databaseResultsArray}
-            </div>
-          </div>
-        );
-
-        // return search and results sections
-      }
-      return (
-        <div className="mainSearchContainer">
-          <div className="doubleSearch">
-            {searchInput}
-          </div>
-          <h2>Hi, {this.props.username}. Run your first search...or reSearch.</h2>
+    const header = this.state.hasRunSearch ? <h2>Your Results: {this.state.lastQuery}</h2> : <h2>Hi, {this.props.username}. Run your first search...or reSearch.</h2>
+    return (
+      // add results component in here, below the searchInput element
+      <div className="mainSearchContainer">
+        <div className="googleSearch">
+          <SearchInput handleGoogleChange={this.handleGoogleChange} handleGoogleSubmit={this.handleGoogleSubmit} />
+          {header}
+          <ResultsButtons allOrNoneSelector={this.allOrNoneSelector} saveResults={this.saveResults} />
+          {this.state.searchResults}
         </div>
-      );
-    };
-    return renderSwitch();
+        <div className="databaseSearch">
+          <h2>Your Search: {this.state.googleQueryInput}</h2>
+          {this.state.fuzzyResults}
+        </div>
+      </div>
+    );
   }
 }
 

@@ -26,18 +26,13 @@ QueryController.delete = (req, res, next) => {
 };
 
 QueryController.create = (req, res, next) => {
-  console.log(req.body);
-  debugger;
   const { searchText, results } = req.body;
-  console.log(typeof results)
-  console.log(typeof JSON.parse(results))
-  const newQuery = new Query({ userId: res.locals.userId, searchText, results });
-  console.log(newQuery.results);
-  // newQuery.save((err, query) => {
-  //   if (err) return next(err);
-  //   if (!query) return res.sendStatus(404);
-  //   return res.status(200).send(query);
-  // });
+  const newQuery = new Query({ userId: res.locals.userId, searchText: searchText, results: results });
+  newQuery.save((err, query) => {
+    // if (err) return res.status(500).send(err);
+    // if (!query) return res.sendStatus(404);
+    // return res.sendStatus(200);
+  });
 };
 
 export default QueryController;

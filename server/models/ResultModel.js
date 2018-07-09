@@ -1,11 +1,11 @@
-import mongoose, { Schema } from 'mongoose';
+// import mongoose, { Schema } from 'mongoose';
 
-const ResultSchema = new Schema({
-  link: String,
-  htmlTitle: String,
-  htmlSnippet: String,
-  tags: Array,
-  query_id: { type: Schema.Types.ObjectId, ref: 'Query' },
-});
+// const ResultSchema = new Schema({
+//   link: String,
+//   htmlTitle: String,
+//   htmlSnippet: String,
+//   tags: Array,
+//   query_id: { type: Schema.Types.ObjectId, ref: 'Query' },
+// });
 
-module.exports = mongoose.model('Result', ResultSchema);
+// module.exports = mongoose.model('Result', ResultSchema);
