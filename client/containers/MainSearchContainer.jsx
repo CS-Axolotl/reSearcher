@@ -114,7 +114,8 @@ class MainSearchContainer extends Component {
       return acc;
     }, []);
     this.setState({ searchResults: [...checkedDocs] });
-    axios.post('/api/queries', { searchText: this.state.lastQuery, results: checkedDocs })
+    const results = checkedDocs.map(({props}) => props);
+    axios.post('/api/queries', { searchText: this.state.lastQuery, results })
       .then(res => {
         console.log(res)
       })
