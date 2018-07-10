@@ -5,15 +5,16 @@ import SearchResult from '../components/SearchResult.jsx';
 import DatabaseResult from '../components/DatabaseResult.jsx';
 import SearchInput from '../components/SearchInput.jsx';
 import ResultsButtons from '../components/ResultsButtons.jsx';
+import { WSA_E_CANCELLED } from 'constants';
 
 const options = {
   shouldSort: true,
   threshold: 0.5,
   location: 0,
-  distance: 50,
+  distance: 100,
   maxPatternLength: 32,
   minMatchCharLength: 1,
-  keys: ['htmlTitle', 'link', 'htmlSnippet'],
+  keys: ['searchText', 'results', 'htmlSnippet'],
 };
 
 class MainSearchContainer extends Component {
@@ -27,28 +28,53 @@ class MainSearchContainer extends Component {
       googleQueryInput: '',
       lastQuery: '',
       fuzzyResults: [],
+      fuzzyContainer: [],
     };
+  }
+  componentDidMount() {
+    axios.get('/api/queries')
+      .then(({ data }) => {
+        this.setState({ fuzzyContainer: data })
+      })
   }
 
   handleGoogleChange = (event) => {
     this.setState({
       googleQueryInput: event.target.value
     });
-    if (this.state.googleQueryInput.length > 2) {
+    if (this.state.googleQueryInput.length > 0) {
       // ********call db for all data *************
-      axios.get('/api/queries')
-        .then(({ data }) => {
-          console.log(data);
-        })
-      // }
-      // const fuse = new Fuse(database result array, options);
-      // const result = fuse.search(this.state.googleQueryInput);
-      // use fuse to search through
-      // this.state.fuzzyResults.forEach((result) => {
-      //   databaseResultsArray.push(<DatabaseResult result={this.state.fuzzyResults} />);
-      // });
+      // axios.get('/api/queries')
+      //   .then(({ data }) => {
+      const fuse = new Fuse(this.state.fuzzyContainer, options);
+      const filteredQuery = fuse.search(this.state.googleQueryInput)
+      //     console.log(filteredQuery)
+      const searchResults = filteredQuery.map(elem => {
+        // console.log(elem.results)
+        const elements = elem.results.map((element, i) => <DatabaseResult checkId={i} {...element} key={`result+${i}`} />)
+        return (
+          <div key={elem._id}>
+            <h5>Previous Search Term " {elem.searchText} "</h5>
+            {elements}
+          </div>
+        )
+      })
+      // console.log(searchResults)
+      this.setState({ fuzzyResults: searchResults })
     }
   }
+
+
+
+  // }
+  // const fuse = new Fuse(database result array, options);
+  // const result = fuse.search(this.state.googleQueryInput);
+  // use fuse to search through
+  // this.state.fuzzyResults.forEach((result) => {
+  //   databaseResultsArray.push(<DatabaseResult result={this.state.fuzzyResults} />);
+  // });
+
+
 
   handleGoogleSubmit = (event) => {
     event.preventDefault();
@@ -58,7 +84,6 @@ class MainSearchContainer extends Component {
         lastQuery: this.state.googleQueryInput,
         hasRunSearch: true,
       });
-
       axios
         .get('/api/search', { params: { q: searchQuery } })
         .then(({ data }) => {
@@ -108,7 +133,7 @@ class MainSearchContainer extends Component {
           {this.state.searchResults}
         </div>
         <div className="databaseSearch">
-          <h2>Your Search: {this.state.googleQueryInput}</h2>
+          <h2>Your Previous Queries: {this.state.googleQueryInput}</h2>
           {this.state.fuzzyResults}
         </div>
       </div>
