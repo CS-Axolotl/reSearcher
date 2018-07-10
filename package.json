@@ -1,0 +1,60 @@
+{
+  "name": "researcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "client:dev": "webpack --config webpack.config.js --watch",
+    "prebuild": "rimraf dist",
+    "build": "webpack -p --config webpack.config.js",
+    "prestart": "npm run build",
+    "start": "node server",
+    "server:dev": "nodemon --watch dist --watch server server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CS-Axolotl/reSearcher.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CS-Axolotl/reSearcher/issues"
+  },
+  "homepage": "https://github.com/CS-Axolotl/reSearcher#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "react-hot-loader": "^4.3.3",
+    "rimraf": "^2.6.2",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.18.3",
+    "connect-mongodb-session": "^2.0.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "fuse.js": "^3.2.1",
+    "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.1",
+    "morgan": "^1.9.0",
+    "node-fetch": "^2.1.2",
+    "passport": "^0.4.0",
+    "passport-google-token": "^0.1.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-google-login": "^3.2.1"
+  }
+}
