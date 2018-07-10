@@ -1,17 +1,51 @@
 .searchResult {
   display: flex;
   margin-bottom: 10px;
+  margin-top: 5px;
+  padding: 5px;
+  border-bottom: 2px black solid;
 }
 
 .searchDetail p {
   margin: 0;
 }
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  border-bottom: 5px black dashed;
+}
+
+p {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.databaseSearch {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.googleSearch {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  background-color: rgb(76, 111, 175);
+  /* Green */
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+}
+
 /*
 .doubleSearch {
   display: flex;
   width: 50%;
 } */
-/* 
+
+/*
 .reSearchArea {
   display: flex;
   flex-direction: column;
