@@ -33,8 +33,9 @@ class App extends Component {
   componentDidMount() {
     if (this.state.user == null) {
       axios.get('/api/verify-session').then((res) => {
-        const { token = '', user = '' } = res.data;
+        const token = res.headers['x-auth-token'];
         if (token) {
+          const user = res.data;
           this.setState({ isAuthenticated: true, user, token })
         }
       });

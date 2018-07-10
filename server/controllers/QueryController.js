@@ -30,7 +30,7 @@ QueryController.create = (req, res, next) => {
   console.log(req.body);
   const newQuery = new Query({ userId: res.locals.userId, searchText, results });
   newQuery.save((err, query) => {
-    if (err) return res.status(500).send(err);
+    if (err) return next(err);
     if (!query) return res.sendStatus(404);
     return res.status(200).send(query);
   });
